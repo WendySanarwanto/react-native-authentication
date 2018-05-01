@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
-import {  View, Text, } from 'react-native';
-import { Button, Card, CardSection } from './common';
+import { Button, Card, CardSection, Input } from './common';
 
 export default class LoginForm extends Component {
+  state = { email: '' };
+
   render() {
     return (
       <Card>
-        <CardSection></CardSection>
+        <CardSection>
+          <Input label= "Email" value={this.state.email}
+            placeHolder= "john.smith@gmail.com"
+            onChangeText={ email => this.setState({ email }) }/>
+        </CardSection>
 
         <CardSection></CardSection>
 
