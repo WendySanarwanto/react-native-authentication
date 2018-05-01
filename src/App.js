@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import { Header } from './components/comon';
+import { View } from 'react-native';
+import LoginForm from './components/LoginForm';
+import { Header } from './components/common';
 import firebase from 'firebase';
 
 export default class App extends Component {
@@ -21,7 +22,7 @@ export default class App extends Component {
     return (
       <View>
         <Header title="Authentication" />
-        <Text>An app</Text>
+        <LoginForm />
       </View>
     );
   }
