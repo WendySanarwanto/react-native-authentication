@@ -29,7 +29,7 @@ export default class App extends Component {
       case true:
         return ( 
           <CardSection>
-            <Button label="Log Out" />
+            <Button label="Log Out" onClicked={() => firebase.auth().signOut()}/>
           </CardSection>
         )       
       case false:
