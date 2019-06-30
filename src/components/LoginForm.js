@@ -1,29 +1,23 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native';
 import { Button, Card, CardSection, Input, Spinner } from './common';
-import firebase from 'firebase';
+// import firebase from 'firebase';
+import { connect } from 'react-redux';
+import { doSignIn } from '../actions/';
 
-export default class LoginForm extends Component {
+class LoginForm extends Component {
   state = { error: undefined, email: '', password: '', loading: false };
 
   async onClicked() {
     const { email, password } = this.state;
     this.setState({ error: undefined, loading: true });
-
-    try {
-      await firebase.auth().signInWithEmailAndPassword(email, password);
-      this.onLoginSuccess();
-    } catch(signInErr) {
-      console.log(`[WARN] - <LoginForm> Sign In using as '${email}' is failing. Details: \n`, signInErr);
-      try { 
-        await firebase.auth().createUserWithEmailAndPassword(email, password);
-        this.onLoginSuccess();
-      } catch(createUserErr) {
-        // Show message
-        console.log(`[ERROR] - <LoginForm> Creating a new account with email: '${email}' is failing. Details: \n `, createUserErr);
+    this.props.doSignIn(email, password, (err) => {
+      if (err) {
         this.onLoginFail();
-      } 
-    }
+      } else {
+        this.onLoginSuccess();
+      }
+    });
   }
 
   onLoginFail() {
@@ -85,3 +79,5 @@ const styles = {
     color: 'red'
   }
 };
+
+export default connect(null, { doSignIn })(LoginForm);

@@ -25,3 +25,19 @@ export const doInitialiseFirebaseApp = () => (dispatch) => {
   });
 
 };
+
+export const doSignIn = (email, password, callback) => async(dispatch) => {
+  try {
+    await firebase.auth().signInWithEmailAndPassword(email, password);
+    if (callback) callback(null)
+  } catch(signInErr) {
+    console.log(`[WARN] - <firebase> Sign In using as '${email}' is failing. Details: \n`, signInErr);
+    try { 
+      await firebase.auth().createUserWithEmailAndPassword(email, password);
+      if (callback) callback(null)
+    } catch(createUserErr) {      // Show message
+      console.log(`[ERROR] - <firebase> Creating a new account with email: '${email}' is failing. Details: \n `, createUserErr);
+      if (callback) callback(createUserErr)
+    } 
+  }
+}
