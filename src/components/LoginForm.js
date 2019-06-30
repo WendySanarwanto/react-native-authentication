@@ -50,16 +50,20 @@ export default class LoginForm extends Component {
     return (
       <Card>
         <CardSection>
-          <Input label= "Email" value={this.state.email}
+          <Input 
+            label= "Email" 
+            value={this.state.email}
             placeHolder= "john.smith@gmail.com"
             onChangeText={ email => this.setState({ email }) }/>
         </CardSection>
 
         <CardSection>
-          <Input label= "Password" value={this.state.password}
-          placeHolder= "password"
-          secureTextEntry
-          onChangeText= { password => this.setState({ password }) } />
+          <Input 
+            label= "Password" 
+            value={this.state.password}
+            placeHolder= "password"
+            secureTextEntry
+            onChangeText= { password => this.setState({ password }) } />
         </CardSection>
 
         <Text style={styles.errorTextStyle}>
