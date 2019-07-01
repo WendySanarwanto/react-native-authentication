@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import LoginForm from './components/LoginForm';
 import { CardSection, Header, Button, Spinner } from './components/common';
-import firebase from 'firebase';
 import { connect } from 'react-redux';
-import { doInitialiseFirebaseApp } from './actions';
+import { doInitialiseFirebaseApp, doSignOut } from './actions';
 
 import Root from './Root';
 
@@ -19,7 +18,7 @@ class App extends Component {
       case true:
         return ( 
           <CardSection>
-            <Button label="Log Out" onClicked={() => firebase.auth().signOut()}/>
+            <Button label="Log Out" onClicked={() => this.props.doSignOut()}/>
           </CardSection>
         )       
       case false:
@@ -50,7 +49,9 @@ function mapStateToProps(state) {
   }
 }
 
-const ConnectedApp = connect(mapStateToProps, { doInitialiseFirebaseApp })(App);
+const ConnectedApp = connect(mapStateToProps, { 
+  doInitialiseFirebaseApp,
+  doSignOut })(App);
 
 export default root = () => (
   <Root>

@@ -41,3 +41,7 @@ export const doSignIn = (email, password, callback) => async(dispatch) => {
     } 
   }
 }
+
+export const doSignOut = () => async () => {
+  await firebase.auth().signOut();
+}
