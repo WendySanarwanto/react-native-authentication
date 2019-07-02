@@ -2,34 +2,23 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import LoginForm from './components/LoginForm';
 import { CardSection, Header, Button, Spinner } from './components/common';
-import firebase from 'firebase';
+import { connect } from 'react-redux';
+import { doInitialiseFirebaseApp, doSignOut } from './actions';
 
-export default class App extends Component {
-  state = { loggedIn: null };
+import Root from './Root';
 
+class App extends Component {
+  
   componentDidMount() {
-    // Initialize Firebase
-    const config = {
-      apiKey: 'AIzaSyDf6UWB0FEs4-biGOUW1MCo4dkPqtDF5xY',
-      authDomain: 'rn-authentication-505a8.firebaseapp.com',
-      databaseURL: 'https://rn-authentication-505a8.firebaseio.com',
-      projectId: 'rn-authentication-505a8',
-      storageBucket: 'rn-authentication-505a8.appspot.com',
-      messagingSenderId: '749524062865'
-    };
-    firebase.initializeApp(config);
-
-    firebase.auth().onAuthStateChanged((user) => {
-      this.setState({ loggedIn: user ? true : false });
-    });
+    this.props.doInitialiseFirebaseApp();
   }
 
-  renderContent() {
-    switch(this.state.loggedIn) {
+  renderContent(loggedIn) {
+    switch(loggedIn) {
       case true:
         return ( 
           <CardSection>
-            <Button label="Log Out" onClicked={() => firebase.auth().signOut()}/>
+            <Button label="Log Out" onClicked={() => this.props.doSignOut()}/>
           </CardSection>
         )       
       case false:
@@ -44,11 +33,28 @@ export default class App extends Component {
   }
 
   render() {
+    const { loggedIn } = this.props;
     return (
       <View>
         <Header title="Authentication" />
-        { this.renderContent() }
+        { this.renderContent(loggedIn) }
       </View>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    loggedIn: state.loginState.loggedIn
+  }
+}
+
+const ConnectedApp = connect(mapStateToProps, { 
+  doInitialiseFirebaseApp,
+  doSignOut })(App);
+
+export default root = () => (
+  <Root>
+    <ConnectedApp/>
+  </Root>
+);
