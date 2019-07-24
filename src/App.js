@@ -8,23 +8,22 @@ import { doInitialiseFirebaseApp, doSignOut } from './actions';
 import Root from './Root';
 
 class App extends Component {
-  
   componentDidMount() {
     this.props.doInitialiseFirebaseApp();
   }
 
   renderContent(loggedIn) {
-    switch(loggedIn) {
+    switch (loggedIn) {
       case true:
-        return ( 
+        return (
           <CardSection>
             <Button label="Log Out" onClicked={() => this.props.doSignOut()}/>
           </CardSection>
-        )       
+        )
       case false:
-        return <LoginForm />
+        return <LoginForm />;
       default:
-        return ( 
+        return (
           <CardSection>
             <Spinner style={{ alignItems: 'center' }} size="large" />
           </CardSection>
@@ -37,7 +36,7 @@ class App extends Component {
     return (
       <View>
         <Header title="Authentication" />
-        { this.renderContent(loggedIn) }
+        {this.renderContent(loggedIn)}
       </View>
     );
   }
@@ -49,12 +48,16 @@ function mapStateToProps(state) {
   }
 }
 
-const ConnectedApp = connect(mapStateToProps, { 
-  doInitialiseFirebaseApp,
-  doSignOut })(App);
+const ConnectedApp = connect(
+  mapStateToProps,
+  {
+    doInitialiseFirebaseApp,
+    doSignOut,
+  }
+)(App);
 
 export default root = () => (
   <Root>
-    <ConnectedApp/>
+    <ConnectedApp />
   </Root>
 );

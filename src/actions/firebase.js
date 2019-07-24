@@ -1,14 +1,18 @@
 import firebase from 'firebase';
+import { FIREBASE_API_KEY, FIREBASE_AUTH_DOMAIN, FIREBASE_DB_URL, 
+  FIREBASE_PROJECT_ID, FIREBASE_MESSAGING_SENDER_ID, FIREBASE_APP_ID } from 'react-native-dotenv';
+
 import { CHANGE_LOGIN_STATUS } from './types';
 
 // TODO: MOve this to .json or config file
 const FIREBASE_CONFIG = {
-  apiKey: 'AIzaSyDf6UWB0FEs4-biGOUW1MCo4dkPqtDF5xY',
-  authDomain: 'rn-authentication-505a8.firebaseapp.com',
-  databaseURL: 'https://rn-authentication-505a8.firebaseio.com',
-  projectId: 'rn-authentication-505a8',
-  storageBucket: 'rn-authentication-505a8.appspot.com',
-  messagingSenderId: '749524062865'
+  apiKey: FIREBASE_API_KEY,
+  authDomain: FIREBASE_AUTH_DOMAIN,
+  databaseURL: FIREBASE_DB_URL,
+  projectId: FIREBASE_PROJECT_ID,
+  storageBucket: '',
+  messagingSenderId: FIREBASE_MESSAGING_SENDER_ID,
+  appId: FIREBASE_APP_ID,
 };
 
 export const doInitialiseFirebaseApp = () => (dispatch) => {
